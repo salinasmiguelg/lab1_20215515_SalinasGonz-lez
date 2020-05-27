@@ -6,8 +6,13 @@
                            ((equal? x "commit") commit)
                            ((equal? x "push") push))))
 
+(define comprobarExistencia (lambda (x lista) (if(null? lista) #f (if (equal? x (car lista)) #t (comprobarExistencia x (cdr lista))))))
+
+
+
+
 ;Se define la función add
-(define add (lambda (nombreArchivo) (nombreArchivo) ))
+(define add (lambda (archivos zona) (if(list? archivos) (if(comprobarExistencia ) () zona) zona) ))
 ;Se define la función pull
 (define pull (lambda (nombreArchivo) (nombreArchivo) ))
 ;Se define la función commit
@@ -15,10 +20,12 @@
 ;Se define la función push
 (define push (lambda (nombreArchivo) (nombreArchivo) ))
 
-(define workSpace (lambda (x) (nombreArchivo) ))
-(define index (lambda (nombreArchivo) (nombreArchivo) ))
-(define localRepository (lambda (nombreArchivo) (nombreArchivo) ))
-(define remoteRepository (lambda (nombreArchivo) (nombreArchivo) ))
+
+;El TDA de workSpace se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
+;El TDA de index se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
+;El TDA de localRepository se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
+;El TDA de remoteRepository se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
+
 
 ;Se define generador de ID
 (define generadorID (lambda (nombreArchivo)(list nombreArchivo (random 100))))
