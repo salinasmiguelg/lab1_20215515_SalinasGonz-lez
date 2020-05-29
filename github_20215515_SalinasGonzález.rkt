@@ -6,19 +6,33 @@
                            ((equal? x "commit") commit)
                            ((equal? x "push") push))))
 
+
+(define append (lambda (listOne listTwo)
+  (if (null? listOne)
+       listTwo
+      (cons (car listOne) (append (cdr listOne) listTwo))
+      )
+  ))
+
+
+
+
 (define comprobarExistencia (lambda (x lista) (if(null? lista) #f (if (equal? x (car lista)) #t (comprobarExistencia x (cdr lista))))))
 
+
+(define comprobarAdd (lambda (repositorio lista) (if (null?  lista) #t (if (comprobarExistencia (car lista) repositorio) (comprobarAdd repositorio (cdr lista) ) #f) )))
 
 
 
 ;Se define la función add
-(define add (lambda (archivos zona) (if(list? archivos) (if(comprobarExistencia ) () zona) zona) ))
-;Se define la función pull
-(define pull (lambda (nombreArchivo) (nombreArchivo) ))
+(define add (lambda (archivos zona) (if(list? archivos) (if(comprobarAdd (list-ref zona 0) archivos) (list (list-ref zona 0) (append (list-ref zona 1) archivos) (list-ref zona 2) (list-ref zona 3) (list-ref zona 4)  ) zona) zona) ))
+
 ;Se define la función commit
 (define commit (lambda (nombreArchivo) (nombreArchivo) ))
 ;Se define la función push
 (define push (lambda (nombreArchivo) (nombreArchivo) ))
+;Se define la función pull
+(define pull (lambda (nombreArchivo) (nombreArchivo) ))
 
 
 ;El TDA de workSpace se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
