@@ -14,7 +14,7 @@
       )
   ))
 
-
+(define z1 (list (list "n1" "n2" "n3") null null null "repo Miguel"))
 
 
 (define comprobarExistencia (lambda (x lista) (if(null? lista) #f (if (equal? x (car lista)) #t (comprobarExistencia x (cdr lista))))))
@@ -22,23 +22,26 @@
 
 (define comprobarAdd (lambda (repositorio lista) (if (null?  lista) #t (if (comprobarExistencia (car lista) repositorio) (comprobarAdd repositorio (cdr lista) ) #f) )))
 
+(define generadorCommit (lambda (comentario) (lambda (nombre) (list nombre comentario))))
 
-
+(define quitarCommit (lambda (lista) (list-ref lista 0)) )
+(define mapeoQuitar (lambda (lista) (map quitarCommit lista)))
 ;Se define la función add
 (define add (lambda (archivos zona) (if(list? archivos) (if(comprobarAdd (list-ref zona 0) archivos) (list (list-ref zona 0) (append (list-ref zona 1) archivos) (list-ref zona 2) (list-ref zona 3) (list-ref zona 4)  ) zona) zona) ))
 
 ;Se define la función commit
-(define commit (lambda (nombreArchivo) (nombreArchivo) ))
+(define commit (lambda (comentario zona) (if (string? comentario) (list (list-ref zona 0) null (map (generadorCommit comentario) (list-ref zona 1)) (list-ref zona 3) (list-ref zona 4) )  zona) ))
 ;Se define la función push
-(define push (lambda (nombreArchivo) (nombreArchivo) ))
+(define push (lambda (zona) (list (list-ref zona 0) (list-ref zona 1) (list-ref zona 2) (append (list-ref zona 3) (list-ref zona 2)) (list-ref zona 4) ) ))
 ;Se define la función pull
-(define pull (lambda (nombreArchivo) (nombreArchivo) ))
+(define pull (lambda (zona) (list (append (list-ref zona 0) (mapeoQuitar (list-ref zona 3 ))) (list-ref zona 1) (list-ref zona 2) (list-ref zona 3) (list-ref zona 4) ) ))
 
 
 ;El TDA de workSpace se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
 ;El TDA de index se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
 ;El TDA de localRepository se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
 ;El TDA de remoteRepository se define como una lista de strings, de cualquier largo. Por lo que no se presenta constructor de este TDA.
+
 
 
 ;Se define generador de ID
