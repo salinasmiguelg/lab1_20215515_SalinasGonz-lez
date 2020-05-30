@@ -27,10 +27,10 @@
 (define quitarCommit (lambda (lista) (list-ref lista 0)) )
 (define mapeoQuitar (lambda (lista) (map quitarCommit lista)))
 ;Se define la función add
-(define add (lambda (archivos zona) (if(list? archivos) (if(comprobarAdd (list-ref zona 0) archivos) (list (list-ref zona 0) (append (list-ref zona 1) archivos) (list-ref zona 2) (list-ref zona 3) (list-ref zona 4)  ) zona) zona) ))
+(define add (lambda (zona) (lambda (archivos) (if(list? archivos) (if(comprobarAdd (list-ref zona 0) archivos) (list (list-ref zona 0) (append (list-ref zona 1) archivos) (list-ref zona 2) (list-ref zona 3) (list-ref zona 4)  ) zona) zona) )))
 
 ;Se define la función commit
-(define commit (lambda (comentario zona) (if (string? comentario) (list (list-ref zona 0) null (map (generadorCommit comentario) (list-ref zona 1)) (list-ref zona 3) (list-ref zona 4) )  zona) ))
+(define commit (lambda (zona) (lambda (comentario) (if (string? comentario) (list (list-ref zona 0) null (map (generadorCommit comentario) (list-ref zona 1)) (list-ref zona 3) (list-ref zona 4) )  zona) )))
 ;Se define la función push
 (define push (lambda (zona) (list (list-ref zona 0) (list-ref zona 1) (list-ref zona 2) (append (list-ref zona 3) (list-ref zona 2)) (list-ref zona 4) ) ))
 ;Se define la función pull
@@ -53,6 +53,9 @@
 (define obtenerDatos (lambda (datos) (if(string? datos) (list datos (fecha)) null)))
 
 (define datos? (lambda x (if(list? x) (if(and (string?(car(cdr x))) (string?(car x) (null?(cdr (cdr x))))) #t #f) #f )     ))
+
+
+;(define extraerWorkSpace (lambda (zona)  ))
 
 
 ;TDA Zonas : Es una lista de TDA's donde cada uno de los argumentos representa cada una de las zonas donde se traspasa la información
